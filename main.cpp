@@ -15,12 +15,16 @@ using namespace std;
 void test1();
 void test2();
 void test3();
+void test4();
+void test5();
 
 int main() {
   cout << "Starting memory-leaks-r-us...." << endl;
-  //  test1();
-  //  test2();
-  //  test3();
+  // test1();
+  // test2();
+  // test3();
+  // test4();
+  // test5();
   cout << "Successfully completed memory-leaks-r-us...." << endl;
   return 0;
 }
