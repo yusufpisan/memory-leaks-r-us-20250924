@@ -4,100 +4,100 @@
 using namespace std;
 
 class NodeTest2 {
-  friend ostream &operator<<(ostream &Out, const NodeTest2 &N) {
-    Out << "N<" << N.Value << ", " << (N.Next != nullptr) << ">";
-    return Out;
+  friend ostream &operator<<(ostream &out, const NodeTest2 &n) {
+    out << "N<" << n.value << ", " << (n.next != nullptr) << ">";
+    return out;
   }
 
 public:
-  static int NodeCount;
-  int Value;
-  NodeTest2 *Next;
+  static int nodeCount;
+  int value;
+  NodeTest2 *next;
 
-  explicit NodeTest2(int Value = 0, NodeTest2 *Next = nullptr)
-      : Value{Value}, Next{Next} {
-    ++NodeCount;
-    cout << "Creating " << *this << ", total created: " << NodeCount << endl;
+  explicit NodeTest2(int value = 0, NodeTest2 *next = nullptr)
+      : value{value}, next{next} {
+    ++nodeCount;
+    cout << "Creating " << *this << ", total created: " << nodeCount << endl;
   }
   ~NodeTest2() {
     cout << "Deleting: " << *this;
-    --NodeCount;
-    cout << ", nodes remaining: " << NodeCount << endl;
+    --nodeCount;
+    cout << ", nodes remaining: " << nodeCount << endl;
   }
 };
 
-int NodeTest2::NodeCount = 0;
+int NodeTest2::nodeCount = 0;
 
-NodeTest2 *find(NodeTest2 *Start, int Value) {
-  assert(Start != nullptr);
-  NodeTest2 *Curr = Start;
-  while (Curr != nullptr && Curr->Value != Value)
-    Curr = Curr->Next;
-  return Curr;
+NodeTest2 *find(NodeTest2 *start, int value) {
+  assert(start != nullptr);
+  NodeTest2 *curr = start;
+  while (curr != nullptr && curr->value != value)
+    curr = curr->next;
+  return curr;
 }
 
 // insert B after A, return B
-NodeTest2 *addAfter(NodeTest2 *A, NodeTest2 *B) {
-  assert(A != nullptr && B != nullptr);
-  NodeTest2 *C = A->Next;
-  A->Next = B;
-  B->Next = C;
-  return B;
+NodeTest2 *addAfter(NodeTest2 *a, NodeTest2 *b) {
+  assert(a != nullptr && b != nullptr);
+  NodeTest2 *c = a->next;
+  a->next = b;
+  b->next = c;
+  return b;
 }
 
 // Given the head of the list, find Node with ValB, insert A to come before B
-NodeTest2 *addBefore(NodeTest2 *Start, int ValA, int ValB) {
-  assert(Start != nullptr);
-  NodeTest2 *NodeB = find(Start, ValB);
-  auto *NodeA = new NodeTest2(ValA);
-  NodeA->Next = NodeB;
-  NodeTest2 *Curr = Start;
-  while (Curr->Next != NodeB)
-    Curr = Curr->Next;
-  Curr->Next = NodeA;
-  return Start;
+NodeTest2 *addBefore(NodeTest2 *start, int valA, int valB) {
+  assert(start != nullptr);
+  NodeTest2 *nodeB = find(start, valB);
+  auto *nodeA = new NodeTest2(valA);
+  nodeA->next = nodeB;
+  NodeTest2 *curr = start;
+  while (curr->next != nodeB)
+    curr = curr->next;
+  curr->next = nodeA;
+  return start;
 }
 
-NodeTest2 *remove(NodeTest2 *Start, NodeTest2 *N) {
-  assert(Start != nullptr);
-  NodeTest2 *Curr = Start;
-  while (Curr != nullptr && Curr->Next != N)
-    Curr = Curr->Next;
-  if (Curr != nullptr)
-    Curr->Next = N->Next;
-  return Start;
+NodeTest2 *remove(NodeTest2 *start, NodeTest2 *n) {
+  assert(start != nullptr);
+  NodeTest2 *curr = start;
+  while (curr != nullptr && curr->next != n)
+    curr = curr->next;
+  if (curr != nullptr)
+    curr->next = n->next;
+  return start;
 }
 
-void displayAll(NodeTest2 *N) {
+void displayAll(NodeTest2 *n) {
   cout << "[";
-  if (N != nullptr) {
-    cout << *N;
-    N = N->Next;
+  if (n != nullptr) {
+    cout << *n;
+    n = n->next;
   }
-  while (N != nullptr) {
-    cout << ", " << *N;
-    N = N->Next;
+  while (n != nullptr) {
+    cout << ", " << *n;
+    n = n->next;
   }
   cout << "]" << endl;
 }
 
 void test2() {
-  auto *Head = new NodeTest2(100);
-  NodeTest2 *Tail = Head;
-  for (int I = 1; I <= 5; ++I) {
-    Tail = addAfter(Tail, new NodeTest2(I * I * I));
+  auto *head = new NodeTest2(100);
+  NodeTest2 *tail = head;
+  for (int i = 1; i <= 5; ++i) {
+    tail = addAfter(tail, new NodeTest2(i * i * i));
   }
-  displayAll(Head);
-  addBefore(Head, 7, 8);
-  addBefore(Head, 13, 125);
-  addBefore(Head, 15, 9);
-  addBefore(Head, 17, 11);
+  displayAll(head);
+  addBefore(head, 7, 8);
+  addBefore(head, 13, 125);
+  addBefore(head, 15, 9);
+  addBefore(head, 17, 11);
 
-  addBefore(Head, 19, 100);
-  displayAll(Head);
-  remove(Head, find(Head, 8));
-  remove(Head, find(Head, 77));
-  remove(Head, find(Head, 100));
-  remove(Head, find(Head, 19));
-  displayAll(Head);
+  addBefore(head, 19, 100);
+  displayAll(head);
+  remove(head, find(head, 8));
+  remove(head, find(head, 77));
+  remove(head, find(head, 100));
+  remove(head, find(head, 19));
+  displayAll(head);
 }

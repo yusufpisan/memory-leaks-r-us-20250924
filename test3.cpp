@@ -6,39 +6,39 @@ using namespace std;
 
 class StringT3 {
 public:
-  string *MyStrings = new string[3];
+  string *myStrings = new string[3];
   StringT3() = default;
-  StringT3(string A, string B, string C) {
-    MyStrings[0] = A; // NOLINT - not using move
-    MyStrings[1] = B; // NOLINT - not using move
-    MyStrings[2] = C; // NOLINT - not using move
-    cout << "Created " << MyStrings[0] << MyStrings[1] << MyStrings[2] << endl;
+  StringT3(string a, string b, string c) {
+    myStrings[0] = a;
+    myStrings[1] = b;
+    myStrings[2] = c;
+    cout << "Created " << myStrings[0] << myStrings[1] << myStrings[2] << endl;
   }
 
   ~StringT3() {
-    cout << "Deleting " << MyStrings[0] << MyStrings[1] << MyStrings[2] << endl;
+    cout << "Deleting " << myStrings[0] << myStrings[1] << myStrings[2] << endl;
   }
 };
 
 void test3() {
-  StringT3 S1("a", "b", "c");
-  StringT3 T1;
-  T1 = S1;
-  StringT3 U1(S1);
-  U1.MyStrings[0] = "q";
+  StringT3 s1("a", "b", "c");
+  StringT3 t1;
+  t1 = s1;
+  StringT3 u1(s1);
+  u1.myStrings[0] = "q";
 
-  auto *S2ptr = new StringT3("w", "x", "y");
-  StringT3 *T2ptr;
-  T2ptr = S2ptr;
+  auto *s2ptr = new StringT3("w", "x", "y");
+  StringT3 *t2ptr;
+  t2ptr = s2ptr;
 
-  vector<StringT3> V1;
-  V1.push_back(S1);
-  V1.push_back(T1);
-  V1.push_back(U1);
+  vector<StringT3> v1;
+  v1.push_back(s1);
+  v1.push_back(t1);
+  v1.push_back(u1);
 
-  vector<StringT3 *> V2;
-  V2.push_back(S2ptr);
-  V2.push_back(T2ptr);
+  vector<StringT3 *> v2;
+  v2.push_back(s2ptr);
+  v2.push_back(t2ptr);
 
   cout << "test3 is done" << endl;
 }
