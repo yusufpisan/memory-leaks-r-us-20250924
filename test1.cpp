@@ -44,4 +44,5 @@ void test1() {
     auto *tmp = new NodeTest1(i * i);
     n4arr[i] = tmp;
   }
+  delete n1ptr;
 }
